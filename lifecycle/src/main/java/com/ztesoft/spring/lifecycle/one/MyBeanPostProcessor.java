@@ -14,12 +14,12 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
     }
 
     public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException {
-        System.out.println("BeanPostProcessor接口的 postProcessBeforeInitialization方法调用");
+        System.out.println(name + " -- BeanPostProcessor接口的 postProcessBeforeInitialization方法调用");
         return bean;
     }
 
     public Object postProcessAfterInitialization(Object bean, String name) throws BeansException {
-        System.out.println("BeanPostProcessor接口的 postProcessAfterInitialization方法调用");
+        System.out.println(name + " -- BeanPostProcessor接口的 postProcessAfterInitialization方法调用");
         return bean;
     }
 

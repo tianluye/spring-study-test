@@ -8,6 +8,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 /**
  * @author tian.lue
  */
@@ -102,6 +105,16 @@ public class Person implements BeanNameAware, BeanFactoryAware, ApplicationConte
     // 通过<bean>的destroy-method属性指定的初始化方法
     public void myDestroy() {
         System.out.println("【destroy-method】调用<bean>的destroy-method属性指定的初始化方法");
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("执行 PostConstruct注解方法......");
+    }
+
+    @PreDestroy
+    public void preDestroy()  {
+        System.out.println("执行 PreDestroy注解方法......");
     }
 
 }
