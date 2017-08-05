@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="person" class="com.ztesoft.spring.lifecycle.one.Person">
+        <property name="name">
+            <value>Tom</value>
+        </property>
+        <property name="sex">
+            <value>Man</value>
+        </property>
+        <property name="phone">
+            <value>13912034400</value>
+        </property>
+    </bean>
+
+    <bean id="asd" class="com.ztesoft.spring.lifecycle.one.MyBeanPostProcessor"></bean>
+
+
+</beans>

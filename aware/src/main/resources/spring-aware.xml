@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<bean id="propertyGetterListener" class="com.aware.applicationcontext.PropertyGettedListener"/>-->
+    <!--<bean id="helloBean" class="com.aware.applicationcontext.TestApplicationContext">-->
+        <!--<property name="helloWord"><value>Hello Swiftlet!</value></property>-->
+    <!--</bean>-->
+    <bean id="helloBean" class="com.ztesoft.spring.aware.one.ApplicationContextAwareBean">
+        <property name="helloWord"><value>Hello Swiftlet!</value></property>
+    </bean>
+    <bean id="listener" class="com.ztesoft.spring.aware.one.ApplicationContextListener"/>
+
+    <bean id="market" class="com.ztesoft.spring.aware.two.Market"></bean>
+    <bean id="apple" class="com.ztesoft.spring.aware.two.Apple">
+        <property name="grand" value="HongFuShi"></property>
+        <property name="price" value="6.66"></property>
+    </bean>
+
+
+</beans>
