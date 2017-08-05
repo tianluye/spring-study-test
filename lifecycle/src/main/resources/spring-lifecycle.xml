@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="person" class="com.ztesoft.spring.lifecycle.one.Person">
+    <bean id="person" class="com.ztesoft.spring.lifecycle.one.Person" init-method="myInit" destroy-method="myDestroy">
         <property name="name">
             <value>Tom</value>
         </property>
@@ -15,7 +15,7 @@
         </property>
     </bean>
 
-    <bean id="asd" class="com.ztesoft.spring.lifecycle.one.MyBeanPostProcessor"></bean>
+    <bean id="myBeanPostProcessor" class="com.ztesoft.spring.lifecycle.one.MyBeanPostProcessor"></bean>
 
 
 </beans>
