@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-aware</artifactId>
+    <artifactId>aware</artifactId>
 
 
 </project>

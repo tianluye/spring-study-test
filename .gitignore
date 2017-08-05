@@ -1,0 +1,11 @@
+*~
+.Ds_Store
+.idea/
+*.iml
+target/
+overlays/
+*.log
+logs/
+.settings/
+.project
+.classpath
