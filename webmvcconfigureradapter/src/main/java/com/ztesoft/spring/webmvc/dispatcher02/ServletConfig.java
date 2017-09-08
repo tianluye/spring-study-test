@@ -48,6 +48,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // 如果在这里新增消息转换器，则会覆盖了 Spring默认的消息转换器
     }
 
     @Override
