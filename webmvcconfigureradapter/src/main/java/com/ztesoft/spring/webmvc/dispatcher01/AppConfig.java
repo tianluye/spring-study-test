@@ -1,4 +1,4 @@
-package com.ztesoft.spring.webmvc.configureradapter;
+package com.ztesoft.spring.webmvc.dispatcher01;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

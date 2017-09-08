@@ -1,4 +1,4 @@
-package com.ztesoft.spring.webmvc.configureradapter;
+package com.ztesoft.spring.webmvc.dispatcher01;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

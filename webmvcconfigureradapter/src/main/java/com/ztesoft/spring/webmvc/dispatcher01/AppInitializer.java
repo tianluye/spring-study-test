@@ -1,4 +1,4 @@
-package com.ztesoft.spring.webmvc.configureradapter;
+package com.ztesoft.spring.webmvc.dispatcher01;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -27,6 +27,6 @@ public class AppInitializer implements WebApplicationInitializer {
          <url-pattern>/</url-pattern>
          </servlet-mapping>
          */
-        dynamic.addMapping("/");
+        dynamic.addMapping("/dispatcher01/*");
     }
 }

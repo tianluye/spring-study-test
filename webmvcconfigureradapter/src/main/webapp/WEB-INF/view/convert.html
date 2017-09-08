@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="content">
+    <p>
+        $.ajax({
+            url: 'convert',
+            data: 'Tian-LuYe',
+            type: 'POST',
+            contentType: 'application/x-self',
+            success: function (result) {
+                $('#result').text(result);
+            }
+        });
+    </p>
+
+    <hr>
+
+    <button id="submit">Send Request</button>
+
+    <br>
+
+    <p id="result"></p>
+
+</div>
+
+<script src="resource/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('#submit').on('click', function () {
+        $.ajax({
+            url: 'ctr/convert',
+            data: 'Tian-LuYe',
+            type: 'POST',
+            contentType: 'application/x-self',
+            success: function (result) {
+                $('#result').text(result);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

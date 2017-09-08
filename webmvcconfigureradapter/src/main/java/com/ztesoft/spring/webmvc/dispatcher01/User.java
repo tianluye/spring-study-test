@@ -1,4 +1,4 @@
-package com.ztesoft.spring.webmvc.configureradapter;
+package com.ztesoft.spring.webmvc.dispatcher01;
 
 import java.io.Serializable;
 

@@ -104,8 +104,16 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.2.3</version>
+            <version>2.7.0</version>
         </dependency>
+
+        <!--
+            java.lang.NoSuchMethodError: com.fasterxml.jackson.databind.ObjectMapper.canSerialize
+            错误原因 ： spring和jackson版本不兼容导致
+            spring4.3.3+jackson2.1 版本冲突,不兼容jackson2.1,调整到jackson2.7.0
+            spring 4.2+jackson 2.7 版本冲突,不兼容jackson2.7 , 该用jackson 2.6即可
+            spring 4.1.6+jackson 2.7版本冲突 了解到jackson2.7必须使用更高的spring版本,将jackson降为2.6
+        -->
 
     </dependencies>
 
