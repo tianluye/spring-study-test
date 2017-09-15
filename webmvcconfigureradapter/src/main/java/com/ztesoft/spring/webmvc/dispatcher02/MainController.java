@@ -2,16 +2,26 @@ package com.ztesoft.spring.webmvc.dispatcher02;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author tian.lue
@@ -58,9 +68,45 @@ public class MainController {
         return user;
     }
 
-    @RequestMapping(value = "/convert", produces = { "application/x-self" })
-    public @ResponseBody Person convert(@RequestBody Person person) {
+    @Autowired
+    private ResourceBundleMessageSource resourceBundleMessageSource;
+
+    @RequestMapping(value = "/convert", produces = { "application/x-self" }, method = RequestMethod.POST)
+    public @ResponseBody Person convert(@RequestBody @Valid Person person, BindingResult br) {
+        // BindingResult存放校验 Person规则的错误信息
+        if (br.hasErrors()) { // 是否存在错误信息
+            List<ObjectError> errorList = br.getAllErrors();
+            for (ObjectError error : errorList) {
+                String msgCode = error.getCode(); // 获取错误信息 code
+                // 获取其对应在国际化资源文件中的 message
+                /**
+                 * 参数 1、对应资源文件中的 Key
+                 * 参数 2、对应医院文件中的 Value里的占位符 {}
+                 * 参数 3、当资源文件中找不到参数 1对应的 Key时，取参数 3
+                 * 参数 4、对应的国际化，为 null时，去默认的资源文件
+                 */
+                String message = resourceBundleMessageSource.getMessage(msgCode, new Object[] {"**Test**"},
+                    "default", Locale.CHINESE);
+                System.out.println(message);
+            }
+        }
         return person;
+    }
+
+    /**
+     * http://localhost:8080/dispatcher02/ctr/contentNegotiation.html
+     * http://localhost:8080/dispatcher02/ctr/contentNegotiation
+     * 结果为： Test ContentNegotiation!
+     * http://localhost:8080/dispatcher02/ctr/contentNegotiation.json
+     * 结果为： {"1":"a","2":"b"}
+     * @return
+     */
+    @GetMapping("/contentNegotiation")
+    public ModelAndView contentNegotiationTest() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("1", "a");
+        map.put("2", "b");
+        return new ModelAndView("contentNegotiation", map);
     }
 
 }

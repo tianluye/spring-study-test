@@ -1,9 +1,11 @@
 package com.ztesoft.spring.webmvc.dispatcher02;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
@@ -51,23 +53,45 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         // 如果在这里新增消息转换器，则会覆盖了 Spring默认的消息转换器
     }
 
+    @Autowired
+    private SelfMessageConverter converter;
+
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        SelfMessageConverter converter = new SelfMessageConverter();
         converters.add(converter);
     }
 
-    @Override
-    public Validator getValidator() {
-        return null;
-    }
+    @Autowired
+    private SelfValidator validator;
 
     @Override
+    public Validator getValidator() {
+        // 校验器
+        return validator;
+    }
+
+    // 专门用来配置内容裁决的一些参数
+    @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        /*
+        // 是否通过请求Url的扩展名来决定media type
+        configurer.favorPathExtension(true)
+            // 不检查Accept请求头
+            .ignoreAcceptHeader(true)
+            .parameterName("mediaType")
+            // 设置默认的media type
+            .defaultContentType(MediaType.TEXT_HTML)
+            // 请求以.html结尾的会被当成MediaType.TEXT_HTML
+            .mediaType("html", MediaType.TEXT_HTML)
+            // 请求以.json结尾的会被当成MediaType.APPLICATION_JSON
+            .mediaType("json", MediaType.APPLICATION_JSON);
+        */
     }
 
     @Override
     public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+        // Configure asynchronous request handling options.
+        super.configureAsyncSupport(configurer);
     }
 
     @Override
@@ -89,6 +113,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        // 增加参数解析器
     }
 
     @Override
@@ -119,6 +144,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         registry.addViewController("/convert").setViewName("convert");
         registry.addViewController("/").setViewName("welcome");
+//        registry.addViewController("/contentNegotiation").setViewName("contentNegotiation");
     }
 
     @Override
@@ -132,11 +158,20 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 此方法用来专门注册一个 Handler，来处理静态资源的，例如：图片，js，css等
         super.addResourceHandlers(registry);
+        // http://localhost:8080/dispatcher02/resource/js/jquery.js --> WEB-INF/js/jquery.js
         registry.addResourceHandler("/resource/**").addResourceLocations("/WEB-INF/");
     }
 
+    /**
+     * 注册一个默认的Handler：DefaultServletHttpRequestHandler
+     * 这个Handler也是用来处理静态文件的，它会尝试映射/*。
+     * 当DispatcherServlet映射/时（/ 和/* 是有区别的），并且没有找到合适的Handler来处理请求时，
+     * 就会交给DefaultServletHttpRequestHandler 来处理。
+     * 注意：这里的静态资源是放置在web根目录下，而非 WEB-INF 下。
+     */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
 
     @Override
