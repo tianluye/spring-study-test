@@ -5,7 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
@@ -111,9 +110,14 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         configurer.setUseRegisteredSuffixPatternMatch(true);
     }
 
+    @Autowired
+    private HandlerMethodArgumentResolver handlerMethodArgumentResolver;
+
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        super.addArgumentResolvers(argumentResolvers);
         // 增加参数解析器
+        argumentResolvers.add(handlerMethodArgumentResolver);
     }
 
     @Override
@@ -145,6 +149,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/convert").setViewName("convert");
         registry.addViewController("/").setViewName("welcome");
 //        registry.addViewController("/contentNegotiation").setViewName("contentNegotiation");
+        registry.addViewController("/methodArgument").setViewName("methodArgument");
     }
 
     @Override

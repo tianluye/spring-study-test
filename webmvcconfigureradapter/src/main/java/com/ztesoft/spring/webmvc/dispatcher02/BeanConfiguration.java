@@ -3,6 +3,7 @@ package com.ztesoft.spring.webmvc.dispatcher02;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
 /**
  * @author tian.lue
@@ -35,6 +36,11 @@ public class BeanConfiguration {
         // 设置编码，否则中文会乱码
         resourceBundleMessageSource.setDefaultEncoding("UTF-8");
         return resourceBundleMessageSource;
+    }
+
+    @Bean(name = "handlerMethodArgumentResolver")
+    public HandlerMethodArgumentResolver getHandlerMethodArgumentResolver() {
+        return new MyHandlerMethodArgumentResolver();
     }
 
 }

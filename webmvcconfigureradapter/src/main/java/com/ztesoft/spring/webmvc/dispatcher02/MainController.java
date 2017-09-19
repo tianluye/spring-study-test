@@ -2,12 +2,16 @@ package com.ztesoft.spring.webmvc.dispatcher02;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -107,6 +113,23 @@ public class MainController {
         map.put("1", "a");
         map.put("2", "b");
         return new ModelAndView("contentNegotiation", map);
+    }
+
+    /**
+     * 当参数日期为 "yyyy---MM---dd HH:mm:ss"格式的时候，可以将其转为日期
+     * @param binder
+     * @throws Exception
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) throws Exception {
+        DateFormat df = new SimpleDateFormat("yyyy---MM---dd HH:mm:ss");
+        CustomDateEditor dateEditor = new CustomDateEditor(df, true);
+        binder.registerCustomEditor(Date.class, dateEditor);
+    }
+
+    @PostMapping("/method/argument")
+    public School methodArgumentTest(@MyForm Teacher teacher, @MyForm Student student) {
+        return new School(teacher, student);
     }
 
 }
