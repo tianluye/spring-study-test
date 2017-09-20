@@ -47,4 +47,9 @@ public class BeanConfiguration {
         return new MyHandlerMethodReturnValueHandler();
     }
 
+    @Bean(name = "handlerExceptionResolver")
+    public MyHandlerExceptionResolver handlerExceptionResolver() {
+        return new MyHandlerExceptionResolver();
+    }
+
 }

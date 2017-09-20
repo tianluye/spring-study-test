@@ -131,10 +131,17 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+        // 和消息转换器哪里类似，如果在这里配置异常处理器，则会覆盖 Spring默认的的异常处理器
     }
+
+    @Autowired
+    private MyHandlerExceptionResolver handlerExceptionResolver;
 
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+        // 在 Spring的基础上新增异常处理器
+        super.extendHandlerExceptionResolvers(exceptionResolvers);
+        exceptionResolvers.add(handlerExceptionResolver);
     }
 
     @Override

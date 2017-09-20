@@ -144,4 +144,14 @@ public class MainController {
         return student;
     }
 
+    @RequestMapping(value = "/exception/handler", method = RequestMethod.GET)
+    public ModelAndView testExceptionHandler() {
+        String test = null;
+        if (test.length() > 0) {
+            return new ModelAndView("success");
+        } else {
+            return new ModelAndView("error");
+        }
+    }
+
 }
