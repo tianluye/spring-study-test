@@ -31,6 +31,7 @@ import java.util.Map;
 
 /**
  * @author tian.lue
+ * 参考注解代码，@RestController注解，会默认为所有的方法返回值加@ResponseBody注解
  */
 @RestController
 @RequestMapping("/ctr")
@@ -120,7 +121,7 @@ public class MainController {
      * @param binder
      * @throws Exception
      */
-    @InitBinder
+    @InitBinder(value = {"teacher", "student"})
     public void initBinder(WebDataBinder binder) throws Exception {
         DateFormat df = new SimpleDateFormat("yyyy---MM---dd HH:mm:ss");
         CustomDateEditor dateEditor = new CustomDateEditor(df, true);
@@ -130,6 +131,17 @@ public class MainController {
     @PostMapping("/method/argument")
     public School methodArgumentTest(@MyForm Teacher teacher, @MyForm Student student) {
         return new School(teacher, student);
+    }
+
+    @GetMapping("/return/value")
+    @MyResponseBody
+    @StudentPrefix("Hello")
+    public Student testReturnValue() {
+        List<String> love = new ArrayList<String>();
+        love.add("QQ");
+        love.add("WeiXin");
+        Student student = new Student("Tom", 20, new Date(), love);
+        return student;
     }
 
 }

@@ -3,7 +3,6 @@ package com.ztesoft.spring.webmvc.dispatcher02;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
 /**
  * @author tian.lue
@@ -39,8 +38,13 @@ public class BeanConfiguration {
     }
 
     @Bean(name = "handlerMethodArgumentResolver")
-    public HandlerMethodArgumentResolver getHandlerMethodArgumentResolver() {
+    public MyHandlerMethodArgumentResolver getHandlerMethodArgumentResolver() {
         return new MyHandlerMethodArgumentResolver();
+    }
+
+    @Bean(name = "handlerMethodReturnValueHandler")
+    public MyHandlerMethodReturnValueHandler handlerMethodReturnValueHandler() {
+        return new MyHandlerMethodReturnValueHandler();
     }
 
 }

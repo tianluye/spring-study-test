@@ -111,7 +111,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
     }
 
     @Autowired
-    private HandlerMethodArgumentResolver handlerMethodArgumentResolver;
+    private MyHandlerMethodArgumentResolver handlerMethodArgumentResolver;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
@@ -120,8 +120,13 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         argumentResolvers.add(handlerMethodArgumentResolver);
     }
 
+    @Autowired
+    private HandlerMethodReturnValueHandler handlerMethodReturnValueHandler;
+
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+        super.addReturnValueHandlers(returnValueHandlers);
+        returnValueHandlers.add(handlerMethodReturnValueHandler);
     }
 
     @Override

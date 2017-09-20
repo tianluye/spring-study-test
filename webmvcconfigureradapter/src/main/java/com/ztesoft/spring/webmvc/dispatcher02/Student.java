@@ -48,4 +48,12 @@ public class Student implements Serializable {
 
     public Student() {
     }
+
+    public Student(String name, int age, Date date, List<String> love) {
+        this.name = name;
+        this.age = age;
+        this.date = date;
+        this.love = love;
+    }
+
 }
