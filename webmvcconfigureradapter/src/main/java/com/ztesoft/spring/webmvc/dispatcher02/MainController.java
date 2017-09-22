@@ -145,7 +145,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/exception/handler", method = RequestMethod.GET)
-    public ModelAndView testExceptionHandler() {
+    public ModelAndView testExceptionHandler() throws NullPointerException {
         String test = null;
         if (test.length() > 0) {
             return new ModelAndView("success");

@@ -1,6 +1,7 @@
 package com.ztesoft.spring.webmvc.dispatcher02;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -131,17 +132,18 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-        // 和消息转换器哪里类似，如果在这里配置异常处理器，则会覆盖 Spring默认的的异常处理器
+        // 一旦此处重写，那么将不会把默认的三个异常处理器加入列表中
+        MyHandlerExceptionResolver myHandlerExceptionResolver = new MyHandlerExceptionResolver();
+        exceptionResolvers.add(myHandlerExceptionResolver);
+        super.configureHandlerExceptionResolvers(exceptionResolvers);
     }
-
-    @Autowired
-    private MyHandlerExceptionResolver handlerExceptionResolver;
 
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-        // 在 Spring的基础上新增异常处理器
-        super.extendHandlerExceptionResolvers(exceptionResolvers);
-        exceptionResolvers.add(handlerExceptionResolver);
+        // 不要重写此方法，就算重写了，也不会生效。
+        // DelegatingWebMvcConfiguration类里没有重写 WebMvcConfigurationSupport.extendHandlerExceptionResolvers()方法
+        // 导致在 WebMvcConfigurationSupport类中实例化时调用不到此处。
+        // 若一定要重写该方法，可以考虑自定义注解，替代 @EnableWebMvc里面的 @Import({DelegatingWebMvcConfiguration.class})
     }
 
     @Override

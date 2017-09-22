@@ -10,6 +10,9 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @Configuration
 public class BeanConfiguration {
 
+    public BeanConfiguration() {
+    }
+
     @Bean(name = {"AoDi"})
     public Car getADCar() {
         Car car = new Car();
@@ -47,7 +50,7 @@ public class BeanConfiguration {
         return new MyHandlerMethodReturnValueHandler();
     }
 
-    @Bean(name = "handlerExceptionResolver")
+    @Bean(name = "myHandlerExceptionResolver")
     public MyHandlerExceptionResolver handlerExceptionResolver() {
         return new MyHandlerExceptionResolver();
     }
