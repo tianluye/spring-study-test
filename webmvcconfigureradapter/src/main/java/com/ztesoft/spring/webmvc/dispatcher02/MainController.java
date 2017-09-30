@@ -78,6 +78,16 @@ public class MainController {
     @Autowired
     private ResourceBundleMessageSource resourceBundleMessageSource;
 
+    /**
+     * 在这里指定消息码解析器，只在此控制器下生效。在mvc配置里面重写 getMessageCodesResolver，作用于全局
+     @InitBinder
+     public void initBinderForMessageCode(WebDataBinder binder) {
+        DefaultMessageCodesResolver resolver = new DefaultMessageCodesResolver();
+        resolver.setPrefix("msg.");
+        binder.setMessageCodesResolver(resolver);
+     }
+     */
+
     @RequestMapping(value = "/convert", produces = { "application/x-self" }, method = RequestMethod.POST)
     public @ResponseBody Person convert(@RequestBody @Valid Person person, BindingResult br) {
         // BindingResult存放校验 Person规则的错误信息
@@ -88,7 +98,7 @@ public class MainController {
                 // 获取其对应在国际化资源文件中的 message
                 /**
                  * 参数 1、对应资源文件中的 Key
-                 * 参数 2、对应医院文件中的 Value里的占位符 {}
+                 * 参数 2、对应资源文件中的 Value里的占位符 {}
                  * 参数 3、当资源文件中找不到参数 1对应的 Key时，取参数 3
                  * 参数 4、对应的国际化，为 null时，去默认的资源文件
                  */

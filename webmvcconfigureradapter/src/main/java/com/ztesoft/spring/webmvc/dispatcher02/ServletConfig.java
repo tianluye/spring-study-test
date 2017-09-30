@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.util.List;
@@ -146,13 +147,33 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         // 若一定要重写该方法，可以考虑自定义注解，替代 @EnableWebMvc里面的 @Import({DelegatingWebMvcConfiguration.class})
     }
 
+    @Autowired
+    private MessageCodesResolver messageCodesResolver;
+
+    /**
+     * 用于解析code，对应 properties里面的 key
+     */
     @Override
     public MessageCodesResolver getMessageCodesResolver() {
-        return null;
+        return messageCodesResolver;
     }
 
+    @Autowired
+    private MyHandlerInterceptor handlerInterceptor;
+
+    @Autowired
+    private MyWebRequestInterceptor webRequestInterceptor;
+
+    /**
+     * 多个拦截器组成一个拦截器链
+     * addPathPatterns 用于添加拦截规则
+     * excludePathPatterns 用户排除拦截
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(handlerInterceptor).addPathPatterns("/convert");
+        registry.addWebRequestInterceptor(webRequestInterceptor).addPathPatterns("/convert");
+        super.addInterceptors(registry);
     }
 
     @Override
@@ -193,8 +214,17 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
+    /**
+     * 全局CORS(跨域)的配置
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+            .allowedOrigins("http://domain2.com")
+            .allowedMethods("PUT", "DELETE")
+            .allowedHeaders("header1", "header2", "header3")
+            .exposedHeaders("header1", "header2")
+            .allowCredentials(false).maxAge(3600);
     }
 
 }

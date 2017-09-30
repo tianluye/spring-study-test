@@ -3,6 +3,8 @@ package com.ztesoft.spring.webmvc.dispatcher02;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.validation.DefaultMessageCodesResolver;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * @author tian.lue
@@ -53,6 +55,23 @@ public class BeanConfiguration {
     @Bean(name = "myHandlerExceptionResolver")
     public MyHandlerExceptionResolver handlerExceptionResolver() {
         return new MyHandlerExceptionResolver();
+    }
+
+    @Bean(name = "messageCodesResolver")
+    public DefaultMessageCodesResolver messageCodesResolver() {
+        DefaultMessageCodesResolver messageCodesResolver = new DefaultMessageCodesResolver();
+        messageCodesResolver.setPrefix("msg.");
+        return messageCodesResolver;
+    }
+
+    @Bean(name = "handlerInterceptor")
+    public MyHandlerInterceptor myHandlerInterceptor() {
+        return new MyHandlerInterceptor();
+    }
+
+    @Bean(name = "webRequestInterceptor")
+    public MyWebRequestInterceptor myWebRequestInterceptor() {
+        return new MyWebRequestInterceptor();
     }
 
 }
