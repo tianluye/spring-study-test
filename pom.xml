@@ -15,6 +15,7 @@
         <module>aware</module>
         <module>lifecycle</module>
         <module>webmvcconfigureradapter</module>
+        <module>upload</module>
     </modules>
 
     <!-- 设置公共属性 -->
@@ -114,6 +115,13 @@
             spring 4.2+jackson 2.7 版本冲突,不兼容jackson2.7 , 该用jackson 2.6即可
             spring 4.1.6+jackson 2.7版本冲突 了解到jackson2.7必须使用更高的spring版本,将jackson降为2.6
         -->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.0.1</version>
+        </dependency>
 
     </dependencies>
 

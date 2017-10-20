@@ -1,0 +1,154 @@
+* {
+	outline: 0;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+body {
+	background: url("../images/welcomeBgr.jpg") no-repeat;
+	/*background-size: width : 100%;*/
+	min-width: 990px;
+	margin: 0;
+	padding: 0;
+}
+#top_title {
+	width: 100%;
+	height: 50px;
+	background-color: #323436;
+}
+
+#top_title_1 {
+	width: 68%;
+	height: 50px;
+	float: left;
+}
+
+#top_title_2 {
+	width: 24%;
+	height: 50px;
+	float: left;
+}
+
+#top_title_3 {
+	width: 5%;
+	height: 50px;
+	float: left;
+}
+
+.dropdown {
+	margin-top: 8px;
+}
+
+.dropdown-menu, ul, a {
+	max-width: 80px;
+	min-width: 60px;
+}
+
+#denglu {
+	margin-right : 10px;
+	background-color: #505050;
+	color: #ACAC97;
+	float: right;
+	cursor : pointer;
+	border-radius : 0px 3px 3px 0px;
+}
+#zhuce {
+	background-color: #6BC30D;
+	color: white;
+	float: right;
+	cursor : pointer;
+	border-radius : 3px 0px 0px 3px;
+}
+.top_title_2_1 {
+	float: left;
+	margin-top : 7px;
+	width: 80px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+}
+
+#body_content {
+	width: 100%;
+}
+
+#blank_1 {
+	width: 100%;
+	height: 15%;
+}
+
+#content {
+	width: 100%;
+	height: 42%;
+}
+#content_left,#content_right {
+	width: 15%;
+	height: 100%;
+	float: left;
+}
+#content_right {
+	margin-left: 10px;
+}
+#content_text {
+	width: 30%;
+	height: 100%;
+	float: left;
+}
+#content_img {
+	width: 22%;
+	height: 100%;
+	float: left;
+	margin-left : 60px;
+}
+#content_img img {
+	margin-left: 0px;
+	margin-top: 0px;
+	width: 100%;
+	height: 100%;
+}
+#blank_2 {
+	width: 100%;
+	height: 11%;
+}
+#bottom {
+	width: 100%;
+	height: 7%;
+}
+.img_turn {
+	margin-left: 100px;
+	margin-top: 110px;
+	cursor : pointer;
+}
+#content_text_1 {
+	font-size: 40px;
+	font-weight: bold;
+	margin-top: 50px;
+}
+#content_text_2 {
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 25px;
+	color: #8F9094;
+}
+
+#bottom_circle {
+	width: 120px;
+	height: 30px;
+	margin : 0px auto;
+}
+.circle {
+	width: 10px;
+	height: 10px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    float : left;
+    margin-left : 10px;
+    margin-top : 20px;
+    border: 1px solid white;
+    cursor : pointer;
+}
+#blank_3 {
+	width: 100%;
+	height: 25%;
+}

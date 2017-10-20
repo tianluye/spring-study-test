@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="../../../../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../../../styles/welcome.css" />
+    <link href="../../../../plugins/layer/skin/default/layer.css" rel="stylesheet">
+    <title>Welcome</title>
+</head>
+<body>
+<div id="welcome_container"></div>
+<script type="text/template" id="welcome">
+    <div id="top_title">
+        <div id="top_title_1"></div>
+        <div id="top_title_2">
+            <div id="denglu" class="top_title_2_1"><%= login %></div>
+            <div id="zhuce" class="top_title_2_1"><%= register %></div>
+        </div>
+        <div id="top_title_3" class="container">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" value="zh"><%= showName %>
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <% if(language != 'zh') { %>
+                    <li role="presentation"><a class="zh" role="menuitem" tabindex="-1" href="javascript:void(0);">中文</a></li>
+                    <% } else { %>
+                    <li role="presentation"><a class="en" role="menuitem" tabindex="-1" href="javascript:void(0);">English</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="body_content">
+
+        <div id="blank_1"></div>
+        <div id="content">
+            <div id="content_left">
+                <img alt="left" src="../../../../images/Arrow_left.png" class="img_turn">
+            </div>
+            <div id="content_text">
+                <div id="content_text_1"><%= top_text  %></div>
+                <div id="content_text_2"><%= bottom_text  %></div>
+            </div>
+            <div id="content_img">
+                <img alt="image" src="<%= img %>" id="image">
+            </div>
+            <div id="content_right">
+                <img alt="right" src="../../../../images/Arrow_right.png" class="img_turn">
+            </div>
+        </div>
+        <div id="blank_2"></div>
+        <div id="bottom">
+            <div id="bottom_circle">
+                <div id="circle_1" class="circle"></div>
+                <div id="circle_2" class="circle"></div>
+                <div id="circle_3" class="circle"></div>
+                <div id="circle_4" class="circle"></div>
+                <div id="circle_5" class="circle"></div>
+            </div>
+        </div>
+        <div id="blank_3"></div>
+    </div>
+</script>
+<script src="../../../../scripts/require.js" data-main="../views/welcomeView"></script>
+
+</body>
+</html>
