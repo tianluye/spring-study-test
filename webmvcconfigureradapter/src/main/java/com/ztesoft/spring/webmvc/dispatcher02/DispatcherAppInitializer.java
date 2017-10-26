@@ -36,6 +36,7 @@ public class DispatcherAppInitializer extends AbstractAnnotationConfigDispatcher
     @Override
     public void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setLoadOnStartup(2);
+        registration.setAsyncSupported(true);
     }
 
     /**

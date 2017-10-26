@@ -25,6 +25,10 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import java.util.List;
 
@@ -36,8 +40,9 @@ import java.util.List;
  */
 @Configuration
 @EnableWebMvc
+@EnableWebSocket
 @ComponentScan
-public class ServletConfig extends WebMvcConfigurerAdapter {
+public class ServletConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
 
     /**
      * 类型转换器 Object <--> String
@@ -185,6 +190,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("welcome");
 //        registry.addViewController("/contentNegotiation").setViewName("contentNegotiation");
         registry.addViewController("/methodArgument").setViewName("methodArgument");
+        registry.addViewController("/index").setViewName("index");
     }
 
     @Override
@@ -219,12 +225,32 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-            .allowedOrigins("http://domain2.com")
-            .allowedMethods("PUT", "DELETE")
-            .allowedHeaders("header1", "header2", "header3")
-            .exposedHeaders("header1", "header2")
-            .allowCredentials(false).maxAge(3600);
+//        registry.addMapping("/api/**")
+//            .allowedOrigins("http://domain2.com")
+//            .allowedMethods("PUT", "DELETE")
+//            .allowedHeaders("header1", "header2", "header3")
+//            .exposedHeaders("header1", "header2")
+//            .allowCredentials(false).maxAge(3600);
+    }
+
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+
+        //前台 可以使用websocket环境
+        registry.addHandler(myWebSocketHandler(), "/websocket").setAllowedOrigins("*")
+                .addInterceptors(new HandshakeInterceptor());
+
+
+        //前台 不可以使用websocket环境，则使用sockjs进行模拟连接
+        registry.addHandler(myWebSocketHandler(), "/sockjs/websocket").setAllowedOrigins("*")
+                .addInterceptors(new HandshakeInterceptor())
+                .withSockJS();
+    }
+
+
+    // websocket 处理类
+    @Bean
+    public WebSocketHandler myWebSocketHandler(){
+        return new MyWebSocketHandler();
     }
 
 }
